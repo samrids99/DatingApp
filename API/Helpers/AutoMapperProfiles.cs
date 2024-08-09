@@ -8,7 +8,8 @@ public class AutoMapperProfiles : Profile
 {
    public AutoMapperProfiles()
    {
-      CreateMap<AppUser, MemberDto>();
+      CreateMap<AppUser, MemberDto>()
+        .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url)); // tells automapper where to go and find main photo
       CreateMap<Photo, PhotoDto>();
    }
 }
