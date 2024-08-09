@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,13 +12,11 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { SharedModule } from './_modules/shared/shared.module';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
-import { errorInterceptorFn } from './_interceptors/error.interceptor';
-import { Router } from '@angular/router';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,15 +40,9 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
     SharedModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useFactory: (toastr: ToastrService, router: Router) => errorInterceptorFn(toastr, router),
-      multi: true,
-      deps: [ToastrService, Router] // Specify the dependencies here
-    },
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi())
-  ],
+  ], // {provide: HTTP_INTERCEPTORS, useClass: errorInterceptor, multi: true},
   bootstrap: [AppComponent]
 })
 export class AppModule { }
