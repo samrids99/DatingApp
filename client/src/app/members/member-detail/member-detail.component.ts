@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MembersService } from '../../_services/members.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @Component({
   selector: 'app-member-detail',
+  standalone: true,
   templateUrl: './member-detail.component.html',
-  styleUrl: './member-detail.component.css'
+  styleUrl: './member-detail.component.css',
+  imports: [CommonModule, TabsModule]
 })
 export class MemberDetailComponent implements OnInit {
   member: Member | undefined;
