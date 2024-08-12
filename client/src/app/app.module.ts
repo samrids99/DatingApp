@@ -16,8 +16,9 @@ import { SharedModule } from './_modules/shared/shared.module';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MemberCardComponent } from './members/member-card/member-card.component
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ], // {provide: HTTP_INTERCEPTORS, useClass: errorInterceptor, multi: true},
   bootstrap: [AppComponent]
 })
