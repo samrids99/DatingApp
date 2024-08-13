@@ -49,3 +49,11 @@
   .gallery {
     height: 600px;
   }
+
+  .theme-blue .bs-datepicker-head {
+    background-color: rgba(174, 173, 240, 1);
+  }
+
+  .theme-blue .bs-datepicker-body table td.week span {
+    color: rgba(174, 173, 240, 1);
+}
