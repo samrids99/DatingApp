@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MembersService } from '../../_services/members.service';
 import { Member } from '../../_models/member';
 import { Pagination } from '../../_models/pagination';
+import { UserParams } from '../../_models/userParams';
+import { AccountService } from '../../_services/account.service';
+import { take } from 'rxjs';
+import { User } from '../../_models/user';
 
 @Component({
   selector: 'app-member-list',
@@ -14,8 +18,19 @@ export class MemberListComponent implements OnInit {
   pagination: Pagination | undefined;
   pageNumber = 1;
   pageSize = 5;
+  userParams: UserParams | undefined;
+  user: User | undefined;
 
-  constructor(private memberService: MembersService) { }
+  constructor(private memberService: MembersService, private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => {
+        if (user) {
+          this.userParams = new UserParams(user);
+          this.user = user;
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
     // this.members$ = this.memberService.getMembers();
@@ -23,7 +38,8 @@ export class MemberListComponent implements OnInit {
   }
 
   loadMembers() {
-    this.memberService.getMembers(this.pageNumber, this.pageSize).subscribe({
+    if (!this.userParams) return;
+    this.memberService.getMembers(this.userParams).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.members = response.result;
@@ -34,10 +50,10 @@ export class MemberListComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    if (this.pageNumber !== event.page) {
-      this.pageNumber = event.page;
+    if (this.userParams && this.userParams?.pageNumber !== event.page) {
+      this.userParams.pageNumber = event.page;
       this.loadMembers();
     }
   }
-   
+
 }
