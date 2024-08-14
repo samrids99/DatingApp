@@ -13,7 +13,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       if (user) {
         return true;
       } else {
-        toastr.error('You shall not pass!');
+        // toastr.error('You shall not pass!');
         return false;
       }
     })
