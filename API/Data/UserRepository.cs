@@ -57,6 +57,12 @@ public class UserRepository : IUserRepository
         var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge)); // finds the youngest we are looking for
 
         query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+        query = userParams.OrderBy switch
+        {
+            "created" => query.OrderByDescending(u => u.Created),
+            _ => query.OrderByDescending(u => u.LastActive)
+        };
     
 
         return await PagedList<MemberDto>.CreateAsync(
