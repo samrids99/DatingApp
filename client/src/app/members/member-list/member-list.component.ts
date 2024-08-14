@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MembersService } from '../../_services/members.service';
 import { Member } from '../../_models/member';
-import { Observable } from 'rxjs';
 import { Pagination } from '../../_models/pagination';
 
 @Component({
