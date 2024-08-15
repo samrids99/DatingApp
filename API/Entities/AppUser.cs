@@ -21,6 +21,6 @@ public class AppUser : IdentityUser<int>
   public List<UserLike> LikedUsers { get; set; } = new();
   public List<Message> MessagesSent { get; set; }
   public List<Message> MessagesReceived { get; set; }
-  public ICollection<AppUser> UserRoles { get; set; }  // ICollection<> and List<> are interchangeable
+  public ICollection<AppUserRole> UserRoles { get; set; }  // ICollection<> and List<> are interchangeable
 
 }
