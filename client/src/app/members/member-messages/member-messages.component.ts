@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/message';
 import { CommonModule } from '@angular/common';
@@ -11,21 +11,14 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class MemberMessagesComponent implements OnInit {
+  @Input() messages: Message[] = [];
   @Input() username?: string;
-  messages: Message[] = [];
 
-  constructor (private messageService: MessageService) { }
+  constructor () { }
 
   ngOnInit(): void {
-    this.loadMessages();
   }
 
-  loadMessages() {
-    if (this.username) {
-      this.messageService.getMessageThread(this.username).subscribe({
-        next: messages => this.messages = messages
-      })
-    }
-  }
+  
 
 }
