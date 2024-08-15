@@ -35,7 +35,7 @@ public class MessageRepository : IMessageRepository
 
     public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
     {
-        var query = _context.Messages.OrderByDescending(x => x.MessageSent).AsQueryable();
+        var query = _context.Messages.OrderBy(x => x.MessageSent).AsQueryable();
 
         query = messageParams.Container switch
         {
@@ -58,7 +58,7 @@ public class MessageRepository : IMessageRepository
             m => m.RecipientUsername == currentUserName
             && m.SenderUsername == RecipientUserName ||
             m.RecipientUsername == RecipientUserName && m.SenderUsername == currentUserName
-          ).OrderByDescending(m => m.MessageSent).ToListAsync();
+          ).OrderBy(m => m.MessageSent).ToListAsync();
 
         var unreadMessages = messages.Where(m => m.DateRead == null && m.RecipientUsername == currentUserName).ToList();
 
@@ -66,7 +66,7 @@ public class MessageRepository : IMessageRepository
         {
             foreach(var message in unreadMessages)
             {
-                message.DateRead = DateTime.Now;     
+                message.DateRead = DateTime.Now;
             }
 
             await _context.SaveChangesAsync();

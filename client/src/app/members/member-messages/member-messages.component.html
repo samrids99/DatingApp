@@ -1,1 +1,37 @@
-<p *ngFor="let message of messages">{{message.content}}</p>
+<div class="card">
+    <div class="card-body">
+        <div *ngIf="messages.length === 0">
+            no messages yet, say hi by using the message box below
+        </div>
+
+        <ul *ngIf="messages.length > 0" class="chat">
+            <li *ngFor="let message of messages">
+                <div>
+                    <span class="chat-img float-end">
+                        <img  src="{{message.senderPhotoUrl || '/assets.user.png'}}" class="rounded-circle" alt="sender photo">
+                    </span>
+                    <div class="chat-body">
+                        <div class="header">
+                            <small class="text-muted">
+                                <span class="fa fa-clock-o">{{message.messageSent | date: "dd/M/YY"}}</span>
+                                <span class="text-danger ms-2" *ngIf="!message.dateRead && message.senderUsername !== username">(unread)</span>
+                                <span class="text-success ms-2" *ngIf="message.dateRead && message.senderUsername !== username">seen</span>
+                            </small>
+                        </div>
+                        <p>{{message.content}}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="send a dm">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
