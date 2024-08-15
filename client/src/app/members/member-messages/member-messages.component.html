@@ -8,14 +8,17 @@
             <li *ngFor="let message of messages">
                 <div>
                     <span class="chat-img float-end">
-                        <img  src="{{message.senderPhotoUrl || '/assets.user.png'}}" class="rounded-circle" alt="sender photo">
+                        <img src="{{message.senderPhotoUrl || '/assets.user.png'}}" class="rounded-circle"
+                            alt="sender photo">
                     </span>
                     <div class="chat-body">
                         <div class="header">
                             <small class="text-muted">
                                 <span class="fa fa-clock-o">{{message.messageSent | date: "dd/M/YY"}}</span>
-                                <span class="text-danger ms-2" *ngIf="!message.dateRead && message.senderUsername !== username">(unread)</span>
-                                <span class="text-success ms-2" *ngIf="message.dateRead && message.senderUsername !== username">seen</span>
+                                <span class="text-danger ms-2"
+                                    *ngIf="!message.dateRead && message.senderUsername !== username">delivered</span>
+                                <span class="text-success ms-2"
+                                    *ngIf="message.dateRead && message.senderUsername !== username">seen</span>
                             </small>
                         </div>
                         <p>{{message.content}}</p>
@@ -25,11 +28,12 @@
         </ul>
     </div>
     <div class="card-footer">
-        <form>
+        <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
             <div class="input-group">
-                <input type="text" class="form-control input-sm" placeholder="send a dm">
+                <input name="messageContent" required [(ngModel)]="messageContent" type="text"
+                    class="form-control input-sm" p laceholder="send a dm">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">send</button>
+                    <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">send</button>
                 </div>
             </div>
         </form>
