@@ -24,6 +24,8 @@ public class UsersController : BaseApiController
         _mapper = mapper;
     }
 
+
+    [Authorize(Roles = "Admin")] // this is how we would implement the uses of authority and roles
     [HttpGet]
     public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
     {
