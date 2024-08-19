@@ -22,8 +22,10 @@ export class NavComponent implements OnInit {
 
   login(){
     this.accountService.login(this.model).subscribe({
-      next: () => this.router.navigateByUrl('/members'),
-      error: error => this.toastr.error(error.error) // remove this line once error interceptor problems are fixed
+      next: () => { 
+        this.router.navigateByUrl('/members');
+        this.model = {}; // resets navbar and username/password fields
+      }
     })
   }
 
