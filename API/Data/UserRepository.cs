@@ -58,7 +58,7 @@ public class UserRepository : IUserRepository
             "created" => query.OrderByDescending(u => u.Created),
             _ => query.OrderByDescending(u => u.LastActive)
         };
-    
+
 
         return await PagedList<MemberDto>.CreateAsync(
             query.AsNoTracking().ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
@@ -72,5 +72,11 @@ public class UserRepository : IUserRepository
         .Where(x => x.UserName == username)
         .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
         .SingleOrDefaultAsync();
+    }
+
+    public async Task<string> GetUserGender(string username)
+    {
+        return await _context.Users.Where(x => x.UserName == username)
+        .Select(x => x.Gender).FirstOrDefaultAsync();
     }
 }
