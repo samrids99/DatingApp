@@ -11,15 +11,13 @@ namespace API.SignalR;
 [Authorize]
 public class MessageHub : Hub
 {
-    private readonly IMessageRepository _messageRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _uow;
     private readonly IMapper _mapper;
 
 
-    public MessageHub(IMessageRepository messageRepository, IUserRepository userRepository, IMapper mapper)
+    public MessageHub(IUnitOfWork uow, IMapper mapper)
     {
-        _messageRepository = messageRepository;
-        _userRepository = userRepository;
+        _uow = uow;
         _mapper = mapper;
 
     }
@@ -31,7 +29,10 @@ public class MessageHub : Hub
         var groupName = GetGroupName(Context.User.GetUsername(), otherUser);
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-        var messages = await _messageRepository.GetMessageThread(Context.User.GetUsername(), otherUser);
+        var messages = await _uow.MessageRepository.GetMessageThread(Context.User.GetUsername(), otherUser);
+
+        if (_uow.HasChanges()) await _uow.Complete();
+        
         await Clients.Group(groupName).SendAsync("ReceiveMessageThread", messages);
 
     }
@@ -48,8 +49,8 @@ public class MessageHub : Hub
         if (username == createMessageDto.RecipientUsername.ToLower())
             throw new HubException("you cannot send messages to yourself");
 
-        var sender = await _userRepository.GetUserByUsernameAsync(username);
-        var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
+        var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
+        var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
         if (recipient == null)
             throw new HubException("not found user");
@@ -63,9 +64,9 @@ public class MessageHub : Hub
             Content = createMessageDto.Content
         };
 
-        _messageRepository.AddMessage(message);
+        _uow.MessageRepository.AddMessage(message);
 
-        if (await _messageRepository.SaveAllAsync()) 
+        if (await _uow.Complete()) 
         {
             var group = GetGroupName(sender.UserName, recipient.UserName);
             await Clients.Group(group).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));

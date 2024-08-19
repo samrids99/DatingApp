@@ -86,8 +86,6 @@ public class MessageRepository : IMessageRepository
             {
                 message.DateRead = DateTime.Now;
             }
-
-            await _context.SaveChangesAsync();
         }
 
         return _mapper.Map<IEnumerable<MessageDto>>(messages);
