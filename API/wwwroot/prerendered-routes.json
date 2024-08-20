@@ -1,0 +1,13 @@
+{
+  "routes": [
+    "/",
+    "/admin",
+    "/errors",
+    "/lists",
+    "/member/edit",
+    "/members",
+    "/messages",
+    "/not-found",
+    "/server-error"
+  ]
+}
