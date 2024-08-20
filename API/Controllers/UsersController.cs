@@ -46,7 +46,8 @@ public class UsersController : BaseApiController
     [HttpGet("{username}")] // /api/users/username
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        return await _uow.UserRepository.GetMemberAsync(username);
+        var currentUsername = User.GetUsername();
+        return await _uow.UserRepository.GetMemberAsync(username, isCurrentUser: currentUsername == username);
     }
 
     [HttpPut]
@@ -118,22 +119,12 @@ public class UsersController : BaseApiController
     {
         var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-        var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+        var photo = await _uow.PhotoRepository.GetPhotoByIdAsync(photoId);
 
         if (photo == null) return NotFound();
 
-        if(photo.IsMain) return BadRequest("you cannot delete your main photo");
+        return Ok();
 
-        if(photo.PublicId != null) // this means it was seeded not added by the client
-        {
-            var result = await _photoService.DeletePhotoAsync(photo.PublicId);
-            if (result.Error != null) return BadRequest(result.Error.Message);    
-        }
-
-        user.Photos.Remove(photo);
-
-        if (await _uow.Complete()) return Ok();
-        return BadRequest("problem deleting photo");
     }
 
 
