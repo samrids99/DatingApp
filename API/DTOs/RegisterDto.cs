@@ -13,6 +13,8 @@ namespace API.DTOs
         [Required]
         public DateOnly? DateOfBirth { get; set; } // optional to make requirement work - strange but go with it
         [Required]
+        public string Address { get; set; }
+        [Required]
         public string City { get; set; }
         [Required]
         public string Country { get; set; }
