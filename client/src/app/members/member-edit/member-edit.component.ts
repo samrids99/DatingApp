@@ -21,6 +21,7 @@ export class MemberEditComponent implements OnInit {
   }
   member: Member | undefined;
   user: User | null = null;
+  newHobby : string | undefined;
 
   constructor(private accountService: AccountService, private memberService: MembersService, private toastr: ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
@@ -46,6 +47,59 @@ export class MemberEditComponent implements OnInit {
         this.editForm?.reset(this.member);
       }
     })
+  }
+
+  addHobby(hobby: string) {
+    if (!this.user || !hobby) return;
+  
+    // Ensure member is fetched correctly
+    this.memberService.getMember(this.user.username).subscribe({
+      next: member => {
+        // Initialize hobbies if not present
+        if (!member.hobbies) {
+          member.hobbies = [];
+        }
+  
+        // Ensure the hobby is added to the existing array
+        if (!member.hobbies.includes(hobby)) {
+          member.hobbies.push(hobby);
+        }
+  
+        // Log the data being sent to the server for debugging
+        console.log('Data being sent to server:', member);
+  
+        // Update the member with the new hobbies array
+        this.memberService.updateMember(member).subscribe({
+          next: _ => {
+            // Successfully updated
+            this.member = member; // Optionally refresh the member object in the component
+            this.toastr.success('Hobby added successfully');
+            this.newHobby = ''; // Clear the input field
+          },
+
+        });
+      },
+      error: err => {
+        console.error('Failed to fetch member:', err);
+        this.toastr.error('Failed to fetch member data.');
+      }
+    });
+  }
+  
+
+  removeHobby(index: number) {
+    if (!this.user) return;
+    var member = this.memberService.getMember(this.user.username).subscribe({
+      next: member => {
+        member.hobbies.splice(index, 1);
+        this.memberService.updateMember(member).subscribe({
+          next: _ => {
+            this.member = member;
+            this.toastr.success('Hobby removed successfully');
+          }
+        });
+      }
+    });
   }
 
 }

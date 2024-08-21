@@ -13,3 +13,41 @@
     background-color: white;
     border-top: none; 
 }
+
+.hobby-adder {
+    color: white;
+    background-color: rgba(174, 173, 240, 1);
+    margin-top: 32px;
+    align-content: center;
+    text-align: center;
+    padding-bottom: 32px;
+    border-radius: 16px;
+}
+
+.hobby-input {
+    text-align: center;
+    width: auto;
+    border-radius: 8px;
+}
+
+.hobby-input-field {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.hobby-button {
+    margin-top: 32px;
+    background-color: white;
+    color: #593196;
+    border: none;
+    font-weight: 700;
+}
+
+.hobby-button:hover {
+    background-color: #593196;
+    color: white;
+    transition: 0.4s;
+    scale: 1.3;
+}
+

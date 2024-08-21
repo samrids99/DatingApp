@@ -47,18 +47,33 @@
                         rows="6"></textarea>
                     <h4 class="mt-2">Interests</h4>
                     <textarea class="form-control" [(ngModel)]="member.interests" name="interests" rows="6"></textarea>
+
                     <h4 class="mt-2">Hobbies</h4>
-                    <textarea class="form-control" [(ngModel)]="member.Hobbies" name="hobbies" rows="6"></textarea>
-                    <h4 class="mt-2">Location details:</h4>
+                    <h5 class="mt-4 mb-4" *ngIf="member.hobbies.length === 0">add some of your hobbies below!</h5>
+                    <div *ngFor="let hobby of member.hobbies; let i = index" class="mb-2">
+                        <input class="form-control" [(ngModel)]="member.hobbies[i]" name="hobby-{{i}}" />
+                        <button type="button" class="btn btn-danger mt-1" (click)="removeHobby(i)">Remove</button>
+                    </div>
+
+                    <h4 class="mt-2">Location details</h4>
                     <div class="d-flex flex-row align-items-center">
                         <label for="city">Address: </label>
-                        <input type="text" [(ngModel)]="member.Address" name="address" class="form-control mx-2">
+                        <input type="text" [(ngModel)]="member.address" name="address" class="form-control mx-2">
                         <label for="city">City: </label>
                         <input type="text" [(ngModel)]="member.city" name="city" class="form-control mx-2">
                         <label for="country">Country: </label>
                         <input type="text" [(ngModel)]="member.country" name="country" class="form-control mx-2">
                     </div>
                 </form>
+                <div class="hobby-adder">
+                    <h4 class="mt-4">Hobby adder</h4>
+                    <div class="hobby-input-field">
+                        <input class="form-control hobby-input" [(ngModel)]="newHobby"
+                            placeholder="Enter a new hobby" name="newHobby" autocomplete="off"/>
+                    </div>
+                    <button type="button" class="btn btn-primary hobby-button"
+                        (click)="newHobby && addHobby(newHobby)">add hobby</button>
+                </div>
             </tab>
             <tab heading="Edit photos">
                 <app-photo-editor [member]="member"></app-photo-editor>

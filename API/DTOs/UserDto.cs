@@ -15,5 +15,5 @@ public class UserDto
     public string Gender { get; set; }
 
     public string Address { get; set; }
-    public string Hobbies { get; set; }
+    public List<string> Hobbies { get; set; }
 }

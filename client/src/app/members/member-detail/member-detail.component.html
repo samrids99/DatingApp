@@ -46,7 +46,7 @@
             </tab>
             <tab heading="Hobbies" (selectTab)="onTabActivated($event)">
                 <h4>Hobbies</h4>
-                <p>{{member.Hobbies}}</p>
+                <p>{{member.hobbies}}</p>
             </tab>
             <tab heading="Photos" #photoTab="tab" (selectTab)="onTabActivated($event)">
                 <gallery [items]="images" *ngIf="photoTab.active" class="gallery"></gallery>

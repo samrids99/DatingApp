@@ -12,8 +12,8 @@ export interface Member {
     introduction: string
     lookingFor: string
     interests: string
-    Hobbies: string
-    Address: string
+    hobbies: string[]
+    address: string
     city: string
     country: string
     photos: Photo[]
