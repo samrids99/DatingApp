@@ -48,6 +48,13 @@
     background-color: transparent;
     display: flex;
     justify-content: center;
+    box-shadow: none;
+}
+
+.btn-heart:active {
+    background-color: rgba(174, 173, 240, 1);
+    border: rgba(174, 173, 240, 1);
+    box-shadow: none;
 }
 
 
@@ -81,6 +88,20 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.fa-heart:hover {
+    background-color: white;
+    color: rgba(174, 173, 240, 1);
+    transition: 0.5s;
+    scale: 1.4;
+}
+.fa-envelope:hover {
+    background-color: white;
+    color: rgba(174, 173, 240, 1);
+    transition: 0.5s;
+    scale: 1.4;
+}
+
 .fa-envelope {
     padding: 16px 16px;
     background-color: #593196;

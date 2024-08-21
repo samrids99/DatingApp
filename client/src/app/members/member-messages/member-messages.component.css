@@ -18,3 +18,16 @@
     max-height: 48px;
 }
 
+.current-user {
+    margin: 10px 10px;
+    background-color: rgba(174, 173, 240, 1);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.other-user {
+    margin: 10px 10px;
+    background-color: rgba(174, 173, 240, 0.4);
+    border-radius: 16px;
+    padding: 24px;
+}

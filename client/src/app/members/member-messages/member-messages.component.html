@@ -5,7 +5,7 @@
         </div>
 
         <ul #scrollMe style="overflow: scroll; height: 500px;" [scrollTop]="scrollMe.scrollHeight" *ngIf="(messageService.messageThread$ | async)!.length" class="chat">
-            <li *ngFor="let message of (messageService.messageThread$ | async)">
+            <li [ngClass]="{'current-user': message.senderUsername === username, 'other-user': message.senderUsername !== username}" *ngFor="let message of (messageService.messageThread$ | async)" >
                 <div>
                     <span class="chat-img float-end">
                         <img src="{{message.senderPhotoUrl || '/assets/user.png'}}" class="rounded-circle"
