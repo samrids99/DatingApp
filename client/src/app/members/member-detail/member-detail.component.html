@@ -1,33 +1,33 @@
 <div class="row">
     <div class="col-4">
-        <div class="card">
+        <div class="card deets-card">
             <img src="{{member.photoUrl || '/assets/user.png'}}" alt="{{member.knownAs}}"
-                class="card-img-top img-thumbnail">
+                class="card-img-top img-thumbnail pic-to-edit">
             <div class="card-body">
                 <div class="mb-2" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.userName)">
                     <i class="fa fa-user-circle text-success"></i> online
                 </div>
-                <div>
+                <div class="location-etc">
                     <strong>Location:</strong>
                     <p>{{member.city}}, {{member.country}}</p>
                 </div>
-                <div>
+                <div class="location-etc">
                     <strong>Age:</strong>
                     <p>{{member.age}}</p>
                 </div>
-                <div>
+                <div class="location-etc">
                     <strong>Last active:</strong>
                     <p>{{member.lastActive | date:"dd MMM yyyy"}}</p>
                 </div>
-                <div>
+                <div class="location-etc">
                     <strong>Member since:</strong>
                     <p>{{member.created | date:"dd MMM yyyy"}}</p>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="btn-group d-flex">
-                    <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success" (click)="selectTab('Messages')">Messages</button>
+                    <button class="btn btn-primary btn-heart"><i class="fa fa-heart" (click)="selectTab('Lists')"></i></button>
+                    <button class="btn btn-success btn-envelope" (click)="selectTab('Messages')"><i class="fa fa-envelope"></i> </button>
                 </div>
             </div>
         </div>

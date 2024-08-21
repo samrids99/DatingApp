@@ -10,6 +10,85 @@
 
 .card-footer {
     padding: 10px 15px;
-    background-color: white;
     border-top: none;
+    background-color: rgba(174, 173, 240, 1);
+    border-radius: 16px;
+    padding-bottom: 32px;
+}
+
+.pic-to-edit {
+    border-radius: 16px;
+    border: black;
+    padding: 0;
+    box-shadow: 5px 5px 10px grey;
+}
+
+.deets-card {
+    background-color: rgba(174, 173, 240, 1);
+    border: none;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.location-etc {
+    text-align: center;
+    margin-bottom: 16px;
+    background-color: white;
+    border-radius: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 64px;
+}
+
+.btn-heart {
+    width: auto;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+
+.btn-envelope {
+    width: auto;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.btn-envelope:active {
+    background-color: rgba(174, 173, 240, 1);
+    border: rgba(174, 173, 240, 1);
+    box-shadow: none;
+}
+
+.btn-group {
+    justify-content: center;
+}
+
+.fa-heart {
+    padding: 16px 16px;
+    background-color: #593196;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.fa-envelope {
+    padding: 16px 16px;
+    background-color: #593196;
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -15,7 +15,7 @@ export class MemberListComponent implements OnInit {
   members: Member[] = []
   pagination: Pagination | undefined;
   pageNumber = 1;
-  pageSize = 12;
+  pageSize = 6;
   userParams: UserParams | undefined;
   genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
 
