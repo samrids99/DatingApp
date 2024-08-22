@@ -4,10 +4,9 @@ import { Member } from '../../_models/member';
 import { Pagination } from '../../_models/pagination';
 import { UserParams } from '../../_models/userParams';
 import { User } from '../../_models/user';
-import { error } from 'console';
 import { AccountService } from '../../_services/account.service';
 import { take } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -16,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './member-list.component.css'
 })
 export class MemberListComponent implements OnInit {
-  // members$: Observable<Member[]> | undefined;
   members: Member[] = []
   pagination: Pagination | undefined;
   pageNumber = 1;
@@ -25,7 +23,7 @@ export class MemberListComponent implements OnInit {
   genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
   user: User | undefined;
 
-  constructor(private memberService: MembersService, private accountService: AccountService, private toastr: ToastrService) {
+  constructor(private memberService: MembersService, private accountService: AccountService) {
     this.userParams = this.memberService.getUserParams();
   }
 

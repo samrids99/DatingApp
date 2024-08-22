@@ -54,7 +54,7 @@
                         <div *ngFor="let hobby of member.hobbies; let i = index" class="mb-2">
                             <div class="hobby-item">
                                 <div class="hobby-name">
-                                    <input class="form-control" [(ngModel)]="member.hobbies[i]" name="hobby-{{i}}" />
+                                    <input class="form-control" [(ngModel)]="member.hobbies[i]" name="hobby" />
                                 </div>
                                 <div class="remove-hobby">
                                     <button type="button" class="my-remove-button"

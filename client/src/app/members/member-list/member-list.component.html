@@ -1,5 +1,5 @@
 <div class="not-active">
-    <button (click)="toggleNotActive()">Toggle NotActive</button>
+    <button (click)="toggleNotActive()" [ngClass]="{'active-user': !user?.notActive, 'inactive-user': user?.notActive}">you are appearing as {{user?.notActive ? 'inactive' : 'active'}}</button>
 </div>
 <div class="text-center mt-3">
     <h2>Your matches - {{pagination?.totalItems}} found</h2>

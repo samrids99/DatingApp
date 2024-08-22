@@ -1,0 +1,37 @@
+.active-user {
+    background-color: green;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-family: "Fjalla One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    padding: 12px 18px;
+}
+
+.active-user:hover {
+    background-color: rgb(8, 175, 8);
+    color: white;
+    transition: 0.4s;
+    scale: 1.1;
+}
+
+.inactive-user {
+    background-color: red;
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-family: "Fjalla One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    padding: 12px 18px;
+}
+
+.inactive-user:hover {
+    background-color: rgb(219, 102, 102);
+    color: white;
+    transition: 0.4s;
+    scale: 1.1;
+}

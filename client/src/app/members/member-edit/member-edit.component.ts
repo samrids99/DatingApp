@@ -52,29 +52,26 @@ export class MemberEditComponent implements OnInit {
   addHobby(hobby: string) {
     if (!this.user || !hobby) return;
   
-    // Ensure member is fetched correctly
     this.memberService.getMember(this.user.username).subscribe({
       next: member => {
-        // Initialize hobbies if not present
+        // have to make sure array is initialized first
         if (!member.hobbies) {
           member.hobbies = [];
         }
   
-        // Ensure the hobby is added to the existing array
+        // then push into it if not there a;ready
         if (!member.hobbies.includes(hobby)) {
           member.hobbies.push(hobby);
         }
   
-        // Log the data being sent to the server for debugging
-        console.log('Data being sent to server:', member);
+        console.log('currently getting this:', member);
   
-        // Update the member with the new hobbies array
+      
         this.memberService.updateMember(member).subscribe({
           next: _ => {
-            // Successfully updated
-            this.member = member; // Optionally refresh the member object in the component
+            this.member = member; 
             this.toastr.success('Hobby added successfully');
-            this.newHobby = ''; // Clear the input field
+            this.newHobby = '';
           },
 
         });
