@@ -127,5 +127,19 @@ public class UsersController : BaseApiController
 
     }
 
+    [HttpPost("set-not-active")]
+    public async Task<ActionResult> SetNotActive()
+    {
+        var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+
+        if (user == null) return NotFound();
+
+        user.NotActive = !user.NotActive;
+
+        if (await _uow.Complete()) return Ok();
+
+        return BadRequest("Problem setting user to not active");
+    }
+
 
 }

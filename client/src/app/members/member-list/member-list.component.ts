@@ -3,6 +3,11 @@ import { MembersService } from '../../_services/members.service';
 import { Member } from '../../_models/member';
 import { Pagination } from '../../_models/pagination';
 import { UserParams } from '../../_models/userParams';
+import { User } from '../../_models/user';
+import { error } from 'console';
+import { AccountService } from '../../_services/account.service';
+import { take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,13 +23,21 @@ export class MemberListComponent implements OnInit {
   pageSize = 6;
   userParams: UserParams | undefined;
   genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
+  user: User | undefined;
 
-  constructor(private memberService: MembersService) {
+  constructor(private memberService: MembersService, private accountService: AccountService, private toastr: ToastrService) {
     this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
-    // this.members$ = this.memberService.getMembers();
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => {
+        if (user) {
+          this.user = user;
+          console.log("i have the user", user); 
+        }
+      }
+    });
     this.loadMembers();
   }
 
@@ -41,6 +54,26 @@ export class MemberListComponent implements OnInit {
       })
     }
 
+  }
+
+  toggleNotActive() {
+    console.log(this.user);
+    if (!this.user) return;
+
+    const newActiveStatus = !this.user.notActive;
+  
+    if (this.user) {
+      this.memberService.setNotActive(newActiveStatus)!.subscribe({
+        next: () => {
+          if (this.user) {
+            this.user.notActive = newActiveStatus;
+            console.log("we have liftoff, new status: ", this.user.notActive);
+          }
+        }, error: error => {
+          console.error("failed", error);
+        }
+      });
+    }
   }
 
   resetFilters() {

@@ -30,6 +30,13 @@ export class MembersService {
     })
   }     // services can be injected into other services, however it cannot by cyclical (both injected into one another)
 
+  setNotActive(notActive: boolean) {
+    if (!this.user) return;
+    
+    return this.http.post(this.baseUrl + 'users/set-not-active/', { userName: this.user.username, notActive });
+  }
+  
+
   getUserParams() {
     return this.userParams;
   }
