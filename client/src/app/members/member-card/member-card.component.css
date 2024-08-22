@@ -11,6 +11,12 @@
     transition-timing-function: ease-out;
 }
 
+.card {
+    background-color: rgba(174, 173, 240, 1);
+    color: white;
+    border: none;
+    box-shadow: 5px 5px 10px grey;
+}
 .card-img-wrapper {
     overflow: hidden;
     position: relative;
