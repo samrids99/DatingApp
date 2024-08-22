@@ -17,6 +17,7 @@ public class MemberDto
   public string Address { get; set; }
   public string City { get; set; }
   public string Country { get; set; }
+  public bool NotActice { get; set; }
   public List<PhotoDto> Photos { get; set; }
 
 }

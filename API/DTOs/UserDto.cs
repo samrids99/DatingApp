@@ -16,4 +16,5 @@ public class UserDto
 
     public string Address { get; set; }
     public List<string> Hobbies { get; set; }
+    public bool NotActive { get; set; }
 }
