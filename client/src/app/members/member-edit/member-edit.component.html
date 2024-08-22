@@ -50,11 +50,11 @@
 
                     <h4 class="mt-2">Hobbies</h4>
                     <div class="hobby-section">
-                        <h5 class="mt-4 mb-4" *ngIf="member.hobbies.length === 0">add some of your hobbies below!</h5>
+                        <h5 class="mt-4 mb-4" *ngIf="member.hobbies?.length === 0">add some of your hobbies below!</h5>
                         <div *ngFor="let hobby of member.hobbies; let i = index" class="mb-2">
                             <div class="hobby-item">
                                 <div class="hobby-name">
-                                    <input class="form-control" [(ngModel)]="member.hobbies[i]" name="hobby" />
+                                    <input class="form-control" [(ngModel)]="member.hobbies[i]" name="hobby-{{i}}" />
                                 </div>
                                 <div class="remove-hobby">
                                     <button type="button" class="my-remove-button"
